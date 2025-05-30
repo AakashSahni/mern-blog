@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import OAuth from "../components/OAuth";
 // import axios from 'axios'
 
 function SignUp() {
@@ -106,6 +107,7 @@ function SignUp() {
 
            <Button className="bg-gradient-to-r from-indigo-500  via-purple-500 to-pink-500  text-white hover:via-purple-600
             hover:to-pink-600 cursor-pointer" type="submit" disabled={Loading} > 
+
             
             {
               Loading ? (
@@ -116,6 +118,9 @@ function SignUp() {
               ) : "Sign Up"
             }
              </Button>
+
+            <OAuth/>
+
 
 
           </form>

@@ -5,6 +5,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice"; 
 import { useDispatch, useSelector} from 'react-redux'
+import OAuth from "../components/OAuth";
 
 function SignIn() {
 
@@ -111,6 +112,8 @@ function SignIn() {
 
            <Button className="bg-gradient-to-r from-indigo-500  via-purple-500 to-pink-500  text-white hover:via-purple-600
             hover:to-pink-600 cursor-pointer" type="submit" disabled={loading} > 
+
+         
             
             {
               loading ? (
@@ -121,6 +124,8 @@ function SignIn() {
               ) : "Sign In"
             }
              </Button>
+
+                <OAuth/>
 
 
           </form>
