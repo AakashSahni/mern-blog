@@ -31,11 +31,15 @@ function DashSideBar() {
       <SidebarItems>
         <SidebarItemGroup>
 
-         <Link to='/dashboard?tab=profile'>
-                 <SidebarItem active={tab === 'profile'} icon={HiUser} label={"user"} labelColor="dark">
-                        Profile
+                 
+
+                <SidebarItem as={Link} to="/dashboard?tab=profile" active={tab === 'profile'} icon={HiUser} label={"user"} labelColor="dark">
+                            Profile
                 </SidebarItem>
-         </Link> 
+                
+       
+              
+       
          
           <SidebarItem
             active
