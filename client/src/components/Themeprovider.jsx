@@ -6,7 +6,7 @@ function Themeprovider({children}) {
     // 3:51:61
     const {theme} = useSelector(state => state.theme);
 
-    console.log(theme);
+    // console.log(theme);
 
   return (
     <div className={theme}>
