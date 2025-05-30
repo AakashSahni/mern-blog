@@ -3,11 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 // import axios from 'axios'
 
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice"; 
+import { useDispatch, useSelector} from 'react-redux'
+
 function SignIn() {
 
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [Loading , setLoading] = useState(false);
+ 
+  const {loading, error: errorMessage} = useSelector((state)=> state.user);
+
+  //dispatch redux toolkit
+  const dispatch = useDispatch();
+
 
   // useNavgiate() to Signin.jsx
   const navigate = useNavigate();
@@ -22,15 +29,13 @@ function SignIn() {
 
       if(!formData.email || !formData.password)
       {
-        return setErrorMessage("Please fill out all fields");
+        return dispatch(signInFailure("Please fill out all fields"));
       }
 
       //fetch method
       try {
 
-        setLoading(true);
-
-        setErrorMessage(null);
+        dispatch(signInStart())
         
         const res = await fetch('/api/auth/signin',{
           method : "POST",
@@ -39,29 +44,31 @@ function SignIn() {
         })
         
         const  data = await res.json();
+
           if(data.success === false)
           {
-            return setErrorMessage(data.message);
+            dispatch(signInFailure(data.message));
           }
 
           if(res.ok)
           {
+            dispatch(signInSuccess(data))
             navigate("/");
           }
 
         console.log(data);
 
-        setLoading(false);
+       
 
         // const res = await axios.post('http://localhost:3000/api/auth/signin', {formData})
 
         // console.log(res.data);
         // console.log("work")
 
-      } catch (error) {
-          setErrorMessage(error.message);
-        setLoading(false);
+      } 
+      catch (error) {
 
+          dispatch(signInFailure(error.message));
       }
  }
 
@@ -103,10 +110,10 @@ function SignIn() {
             </div>
 
            <Button className="bg-gradient-to-r from-indigo-500  via-purple-500 to-pink-500  text-white hover:via-purple-600
-            hover:to-pink-600 cursor-pointer" type="submit" disabled={Loading} > 
+            hover:to-pink-600 cursor-pointer" type="submit" disabled={loading} > 
             
             {
-              Loading ? (
+              loading ? (
                 <>
                   <Spinner size="sm" />
                   <span className="pl-3">Loading..</span>
